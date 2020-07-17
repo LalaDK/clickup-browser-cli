@@ -1,33 +1,43 @@
 #include <stdio.h>
+#include <string.h>
 #include <json-c/json.h>
 #include "http_helper.h"
 #include "task_fetcher.h"
+#include "projects.h"
 #include "tasks.h"
 
 
-struct TaskArray task_array;
+
 struct json_object *current_json;
 struct Task current_task;
 
-void get_tasks() {
-  struct json_object *json;
-  json = http_helper_get_json("https://api.clickup.com/api/v2/list/8212783/task?archived=false");
+void get_tasks(struct TaskArray *task_array, struct Project *project) {
+    printf("%s", project->id);
+    return;
+    
+    struct json_object *json;
+  
+  char url[500];
+  //sprintf(url, "%s%s", "https://api.clickup.com/api/v2/list/", project_id);
+  return;
+  //sprintf(url, "%s", "/task?archived=false");
+  
+  json = http_helper_get_json(url);
 
   struct json_object *tasks;
   tasks = json_object_object_get(json, "tasks");
-  //printf("%s", json_object_get_string(tasks));
 
   int n_tasks = json_object_array_length(tasks);
-  task_array_init(&task_array, n_tasks);
+  task_array_init(task_array, n_tasks);
 
   for(int i = 0; i < n_tasks; i++) {
 
     current_json = json_object_array_get_idx(tasks, i);
     parse_json_task();
-    task_array_add_task(&task_array, &current_task);
+    task_array_add_task(task_array, &current_task);
   }
 
-  task_array_print(&task_array);
+  task_array_print(task_array);
 }
 
 struct Task *parse_json_task() {

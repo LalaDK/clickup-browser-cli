@@ -3,14 +3,19 @@
 #include <json-c/json.h>
 
 #include "main.h"
-#include "http_helper.h"
+
 #include "task_fetcher.h"
-#include "project_fetcher.h"
-#include "gui.h"
+#include "task_presenter.h"
+#include "projects.h"
+#include "project_presenter.h"
+#include "projects.h"
+#include "tasks.h"
+
+struct Project *p;
 
 int main() {
-  show();
-  //get_projects();
-  //get_tasks();
+   select_project(p);
+  select_task(p);
+
   return 0;
 }

@@ -1,0 +1,12 @@
+gcc src/main.c -c -o main.o
+gcc src/http_helper.c -c -o http_helper.o
+gcc src/tasks.c -c -o tasks.o
+gcc src/projects.c -c -o projects.o
+gcc src/task_fetcher.c -c -o task_fetcher.o
+gcc src/project_fetcher.c -c -o project_fetcher.o
+gcc src/gui.c -c -o gui.o
+mv *.o obj/ && \
+cd obj/ && \
+echo /home/mads/src/clickup-browser-cli && \
+gcc -I. -Wall  -o ../bin/app main.o http_helper.o tasks.o projects.o task_fetcher.o project_fetcher.o gui.o -l json-c -l curl -l ncurses 
+/home/mads/src/clickup-browser-cli

@@ -1,5 +1,5 @@
 CC=gcc
-OBJFILES=main.o http_helper.o tasks.o projects.o task_fetcher.o project_fetcher.o gui.o
+OBJFILES=main.o http_helper.o tasks.o projects.o task_fetcher.o project_fetcher.o project_presenter.o task_presenter.o
 TARGET=app
 LDFLAGS=-l json-c -l curl -l ncurses #Library dependencies
 CFLAGS=-I. -Wall #-Wall: gcc -Wall enables all compiler's warning messages. This option should always be used, in order to generate better code.
@@ -29,9 +29,12 @@ task_fetcher.o:
 
 project_fetcher.o: projects.o
 	gcc src/project_fetcher.c -c -o project_fetcher.o
-
-gui.o:
-	gcc src/gui.c -c -o gui.o
+ 
+project_presenter.o: projects.o
+	gcc src/project_presenter.c -c -o project_presenter.o
+	
+task_presenter.o: projects.o
+	gcc src/task_presenter.c -c -o task_presenter.o
 
 clean:
 	cd obj/ && rm -f $(OBJFILES)
