@@ -13,10 +13,10 @@
 static struct TaskArray *task_array;
 static int highlight = 0;
 
-struct Task select_task(struct Project project_ptr) {
+struct Task select_task(struct Project *project_ptr) {
   task_array = malloc(sizeof(struct TaskArray));
   get_tasks(task_array, project_ptr);
-    
+
   initscr();
   noecho();
   cbreak();

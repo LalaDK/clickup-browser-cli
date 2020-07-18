@@ -3,8 +3,7 @@
 #include <json-c/json.h>
 #include "http_helper.h"
 #include "task_fetcher.h"
-#include "projects.h"
-#include "tasks.h"
+
 
 
 
@@ -14,14 +13,14 @@ struct Task current_task;
 void get_tasks(struct TaskArray *task_array, struct Project *project) {
     printf("%s", project->id);
     return;
-    
+
     struct json_object *json;
-  
+
   char url[500];
   //sprintf(url, "%s%s", "https://api.clickup.com/api/v2/list/", project_id);
   return;
   //sprintf(url, "%s", "/task?archived=false");
-  
+
   json = http_helper_get_json(url);
 
   struct json_object *tasks;
