@@ -11,17 +11,12 @@ struct json_object *current_json;
 struct Task current_task;
 
 void get_tasks(struct TaskArray *task_array, struct Project *project) {
-    printf("%s", project->id);
-    return;
-
-    struct json_object *json;
+  struct json_object *json;
 
   char url[500];
-  //sprintf(url, "%s%s", "https://api.clickup.com/api/v2/list/", project_id);
-  return;
-  //sprintf(url, "%s", "/task?archived=false");
-
+  sprintf(url, "%s%s%s", "https://api.clickup.com/api/v2/list/", project->id, "/task?archived=false");
   json = http_helper_get_json(url);
+  return;
 
   struct json_object *tasks;
   tasks = json_object_object_get(json, "tasks");

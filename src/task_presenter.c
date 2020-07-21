@@ -10,13 +10,12 @@
 #include "task_presenter.h"
 
 
-static struct TaskArray *task_array;
+struct TaskArray task_array;
 static int highlight = 0;
 
 struct Task select_task(struct Project *project_ptr) {
-  task_array = malloc(sizeof(struct TaskArray));
-  get_tasks(task_array, project_ptr);
-
+  get_tasks(&task_array, project_ptr);
+  return;
   initscr();
   noecho();
   cbreak();
@@ -37,7 +36,7 @@ struct Task select_task(struct Project *project_ptr) {
         break;
       }
       case KEY_DOWN: {
-        highlight += highlight < (task_array->used - 1) ? 1 : 0;
+        highlight += highlight < (task_array.used - 1) ? 1 : 0;
         break;
       }
       case 10: {
@@ -49,23 +48,23 @@ struct Task select_task(struct Project *project_ptr) {
   }
 
   endwin();
-  return task_array->tasks[highlight];
+  return task_array.tasks[highlight];
 }
 
 static void draw() {
   int row, col;
   getmaxyx(stdscr, row, col);
-  int start_row = (row / 2) - (task_array->used / 2);
+  int start_row = (row / 2) - (task_array.used / 2);
 
   attron(A_STANDOUT);
-  for(int i = 0; i < task_array->used; i++) {
+  for(int i = 0; i < task_array.used; i++) {
     if(i == highlight) {
       attron(A_STANDOUT);
     } else {
       attroff(A_STANDOUT);
     }
 
-    mvprintw(start_row + i, 0, "%s", task_array->tasks[i].name);
+    mvprintw(start_row + i, 0, "%s", task_array.tasks[i].name);
 
   }
   refresh();

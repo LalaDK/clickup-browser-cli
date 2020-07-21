@@ -8,14 +8,14 @@
 #include "project_presenter.h"
 
 
-static struct ProjectArray *project_array;
+struct ProjectArray *project_array;
 static int highlight = 0;
 
 void select_project(struct Project *project_ptr) {
 
   project_array = malloc(sizeof(struct ProjectArray));
   get_projects(project_array);
-    
+
   initscr();
   noecho();
   cbreak();
@@ -40,7 +40,7 @@ void select_project(struct Project *project_ptr) {
         break;
       }
       case 10: {
-        running = false;
+        running = 0;
         break;
       }
     }
@@ -48,7 +48,8 @@ void select_project(struct Project *project_ptr) {
   }
 
   endwin();
-  project_ptr = &project_array->projects[highlight];
+
+  *project_ptr = project_array->projects[highlight];
 }
 
 static void draw() {

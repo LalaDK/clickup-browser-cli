@@ -12,6 +12,7 @@ struct json_object *parsed_json;
 struct json_tokener* tokener;
 
 struct json_object *http_helper_get_json(char *url) {
+  printf("URL: %s", url);
   tokener = json_tokener_new();
   curl = curl_easy_init();
 

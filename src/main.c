@@ -11,11 +11,11 @@
 #include "projects.h"
 #include "tasks.h"
 
-struct Project *p;
+struct Project project;
 
 int main() {
-   select_project(p);
-  select_task(p);
+  select_project(&project);
+  //select_task(&project);
 
   return 0;
 }
